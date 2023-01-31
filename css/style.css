@@ -4,7 +4,7 @@
 @import url("stars.css");
 
 #left-column,
-#right_column {
+#right-column {
     border-radius: 5px;
     border: 2px solid;
 }
