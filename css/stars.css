@@ -1,33 +1,11 @@
 @import url(icons.css);
 @import url(colors.css);
 
-.score {
-  display: block;
-  font-size: 1rem;
-  position: relative;
-  overflow: hidden;
+
+.rating-color{
+  color:var(--color_primary_dark) !important;
 }
 
-.score-wrap {
-  display: inline-block;
-  position: relative;
-  height: 19px;
-}
-
-.score .stars-active {
-  color: var(--color_primary_dark);
-  position: relative;
-  z-index: 10;
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.score .stars-inactive {
-  color: var(--color_secondary_dark);
-  position: absolute;
-  top: 0;
-  left: 0;
-  -webkit-text-stroke: initial;
-  /* overflow: hidden; */
+.ratings i {
+  color:var(--color_secondary_dark);   
 }

@@ -3,213 +3,79 @@
 @import url("icons.css");
 @import url("stars.css");
 
-
-#main{
-    min-height: 100vh;
-    justify-content: center;
-    margin: 2rem;
-}
-
-#left_column, #right_column{
-    align-content: space-between;
-    border-radius: 5px;
-    padding: 1em;
-    border: 2px solid;
-    margin: 1rem 1rem;
-}
-
-#resume {
-    flex: 1;
-    justify-content: center;
-}
-
-
-
-#left_column {
-    flex: 1;
-    background: var(--color_secondary);
-    border-color: var(--color_secondary_dark);
-    margin-left: 0;
-
-}
-
-#profile_picture {
-    display: inline-block;
-    max-width: 20rem;
-    max-height: 20rem;
-    border-color: var(--color_secondary_dark);
-    border-radius: 5px;
-}
-
-
-
-.skill{
-    display: flex;
-    flex-direction: row;
-    padding: 0.5rem 0;
-    margin: 1rem 0;
-}
-
-.skill .skill_name{
-    flex: 1;
-    display: inline-block;
-}
-
-.skill .skill_rating{
-    display: inline-block;
-}
-
-
+#left-column,
 #right_column {
-    flex: 3;
+    border-radius: 5px;
+    border: 2px solid;
+}
+
+#left-column {
     background: var(--color_secondary);
     border-color: var(--color_secondary_dark);
-    margin-right: 0;
 }
 
-#profile{
-    margin-bottom: 1rem;
+#profile-picture {
+    max-width: 15rem;
+    max-height: 15rem;
+    border-color: var(--color_secondary_dark);
+    border-radius: 5px;
 }
 
-
-#profile > *{
-    padding: 1rem;
+#right-column {
+    background: var(--color_secondary);
+    border-color: var(--color_secondary_dark);
 }
 
 #profile h1 {
-    font-size: 3rem;
     color: var(--color_primary_dark);
 }
 
-#profile h2 {
-    font-size: 2rem;
-}
-
-#profile ul{
-    padding: 1rem 0;
-}
-
-.main_section {
-    margin-bottom: 3rem;
-    display: flex;
-    flex-direction: column;
+.main-section {
     border-radius: 5px;
-    background-color: var(--color_secondary_light);
 }
 
-.main_section .section_h {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    padding: 0.5rem;
+.main-section .section-h {
     background-color: var(--color_primary_dark);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    
 }
 
-
-.main_section .section_h .icon-container {
-    display: flex;
-    justify-content: center;
-    padding: 0 1rem;
-    flex: 1
-}
-
-.section_h h2 {
-    display: flex;
-    justify-content: center;
-    font-size: 2rem;
-    flex: 8;
-    text-align: left;
+.section-h h2 {
     color: var(--color_secondary_light);
-    margin: auto auto;
-    padding: 0 1rem;
 }
 
+.cv-entry {
+    background-color: var(--color_secondary_light);
 
-.cv_entry{
+}
+
+.cv-entry > section {
     border-bottom: var(--color_secondary) dashed;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    padding-top: 0;
 }
 
-.cv_entry > * {
-    padding: 1 1rem;
-}
 
-.cv_entry:last-child{
+.cv-entry > section:last-child {
     border-bottom: none;
     margin-bottom: 0;
 }
 
-
-
-.cv_entry .time{
-    text-align: right;
-    flex: 1;
+.time {
     color: var(--color_primary_dark);
     border-right: var(--color_secondary) dashed;
-    margin-bottom: 1rem;
 }
 
-.cv_entry .time time{
-    display: inline-block;
-    font-size: 1.3rem;
-}
-
-.cv_entry .activity{
-    flex: 8;
-    display: flex;
-    flex-direction: column;
-}
-
-.cv_entry .activity .header{
-    flex: 1;
-    margin-bottom: 1rem;
-
-}
-
-.cv_entry .activity .header .title{
+.cv-entry .activity .header .title {
     color: var(--color_primary_dark);
-    font-size: 2rem;
 }
 
-.cv_entry .activity .header .establishment{
-    line-height: 1.4rem;
+
+span.title {
+    color: var(--color_primary_dark);
 }
 
-.cv_entry .activity .header .establishment h4{
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
+.bar {
+    background: var(--color_primary_dark);
+    border-radius: 5px;
+    width: 100%;
+    padding: 1em;
 }
-
-.cv_entry .activity .engagement{
-    flex: 3;
-}
-
-.cv_entry .activity .engagement h5{
-    font-size: 1.2rem;
-}
-
-.cv_entry .activity .engagement .description{
-    margin-bottom: 2rem;
-    line-height: 1.8rem;
-    font-size: 1.2rem;
-}
-
-.cv_entry .activity .engagement .projects{
-    line-height: 1.8rem;
-}
-
-.cv_entry .activity .engagement .projects h5{
-    margin-bottom: 1rem;
-}
-
-.cv_entry .activity .engagement .projects li{
-    margin: 1rem 0;
-}
-
