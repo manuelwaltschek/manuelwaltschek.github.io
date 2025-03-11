@@ -40,4 +40,4 @@ jobs:
           single-commit: true
           git-config-name: github-actions[bot]
           git-config-email: github-actions[bot]@users.noreply.github.com
-          commit-message: 'Deploy modern Vue.js website with primary color #2962B3'
+          commit-message: 'Deploy modern, professional Vue.js website with primary color #2962B3 and CV download'
