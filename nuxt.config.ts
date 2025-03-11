@@ -39,6 +39,14 @@ export default defineNuxtConfig({
       remarkPlugins: ['remark-mermaid'],
       toc: { depth: 2, searchDepth: 2 },
       anchorLinks: true
+    },
+    documentDriven: false,
+    experimental: {
+      clientDB: true,
+      stripQueryParameters: true
+    },
+    navigation: {
+      fields: ['title', 'description', 'date', 'image', 'tags', 'author']
     }
   },
   postcss: {
