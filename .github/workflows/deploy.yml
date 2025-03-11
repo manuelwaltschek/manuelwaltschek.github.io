@@ -30,13 +30,14 @@ jobs:
         run: touch .output/public/.nojekyll
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          external_repository: manuelwaltschek/manuelwaltschek.github.io
-          publish_dir: .output/public
-          publish_branch: main
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy modern Vue.js website with primary color #2962B3'
-          force_orphan: true
+          ssh-key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          repository-name: manuelwaltschek/manuelwaltschek.github.io
+          branch: main
+          folder: .output/public
+          clean: true
+          single-commit: true
+          git-config-name: github-actions[bot]
+          git-config-email: github-actions[bot]@users.noreply.github.com
+          commit-message: 'Deploy modern Vue.js website with primary color #2962B3'
