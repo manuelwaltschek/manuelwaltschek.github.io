@@ -2,14 +2,12 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
-  modules: [
-    '@nuxt/content',
-    '@nuxtjs/tailwindcss',
-    '@vueuse/motion/nuxt'
-  ],
-
+  ssr: true,
+  
+  // App configuration
   app: {
+    baseURL: '/',
+    buildAssetsDir: 'assets',
     head: {
       title: 'Manuel Waltschek - Senior Software Developer',
       meta: [
@@ -22,6 +20,18 @@ export default defineNuxtConfig({
       ]
     }
   },
+
+  // CSS and styling
+  css: ['~/assets/css/main.css'],
+
+  // Modules configuration
+  modules: [
+    '@nuxt/content',
+    '@nuxtjs/tailwindcss',
+    '@vueuse/motion/nuxt'
+  ],
+
+  // Content configuration
   content: {
     highlight: {
       theme: 'github-dark'
@@ -50,5 +60,10 @@ export default defineNuxtConfig({
         }
       }
     }
+  },
+
+  // Nitro configuration for GitHub Pages
+  nitro: {
+    preset: 'github-pages'
   }
 })
