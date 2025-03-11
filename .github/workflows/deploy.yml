@@ -32,8 +32,11 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          deploy_key: ${{ secrets.DEPLOY_KEY }}
+          external_repository: manuelwaltschek/manuelwaltschek.github.io
           publish_dir: .output/public
+          publish_branch: main
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy to GitHub Pages'
+          commit_message: 'Deploy modern Vue.js website with primary color #2962B3'
+          force_orphan: true
