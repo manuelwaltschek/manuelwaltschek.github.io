@@ -67,7 +67,7 @@
 
 <script setup lang="ts">
 // Similar to Angular's component class
-const { data: posts } = await useAsyncData('posts', () => queryContent('blog').sort({ date: -1 }).find())
+const { data: posts } = await useAsyncData('posts', () => queryContent('/blog').sort({ date: -1 }).find())
 
 // Similar to Angular's pipes
 const formatDate = (date: string) => {
