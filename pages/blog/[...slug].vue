@@ -99,7 +99,7 @@
       >
         <div class="max-w-3xl mx-auto px-4">
           <article class="prose prose-slate max-w-none prose-pre:border prose-pre:border-slate-200 prose-pre:p-4 prose-pre:my-6 prose-pre:rounded-lg prose-code:text-primary prose-code:bg-slate-50 prose-code:px-2 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none">
-            <ContentDoc>
+            <ContentDoc :path="`/blog/${route.params.slug}`">
               <template #not-found>
                 <div class="text-center py-12">
                   <h2 class="text-2xl font-semibold text-gray-900 mb-4">Post not found</h2>
@@ -139,10 +139,8 @@ interface BlogPost {
 }
 
 const route = useRoute()
-const { data: post } = await useAsyncData('post', () => {
-  const slug = Array.isArray(route.params.slug) ? route.params.slug.join('/') : route.params.slug
-  return queryContent<BlogPost>('blog').where({ _path: `/blog/${slug}` }).findOne()
-})
+const slug = Array.isArray(route.params.slug) ? route.params.slug.join('/') : route.params.slug
+const { data: post } = await useAsyncData('post', () => queryContent<BlogPost>('/blog').where({ _path: `/blog/${slug}` }).findOne())
 
 // Disable SSR for animations
 const isClient = ref(false)
