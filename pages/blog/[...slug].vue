@@ -106,9 +106,9 @@
                   <p class="text-gray-600 mb-8">The blog post you're looking for doesn't exist or has been moved.</p>
                   <NuxtLink 
                     to="/blog"
-                    class="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                    class="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium"
                   >
-                    Return to Blog
+                    <span class="text-white">Return to Blog</span>
                   </NuxtLink>
                 </div>
               </template>
