@@ -139,8 +139,8 @@ interface BlogPost {
 }
 
 const route = useRoute()
-const { data: post, pending } = await useAsyncData('post', () => 
-  queryContent<BlogPost>(route.path).findOne()
+const { data: post } = await useAsyncData('post', () => 
+  queryContent<BlogPost>().where({ _path: `/blog/${route.params.slug.join('/')}` }).findOne()
 )
 
 // Disable SSR for animations

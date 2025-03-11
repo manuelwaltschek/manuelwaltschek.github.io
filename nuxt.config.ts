@@ -40,15 +40,6 @@ export default defineNuxtConfig({
       remarkPlugins: ['remark-mermaid'],
       toc: { depth: 2, searchDepth: 2 },
       anchorLinks: true
-    },
-    sources: {
-      content: {
-        driver: 'fs',
-        base: './content'
-      }
-    },
-    experimental: {
-      clientDB: true
     }
   },
   postcss: {
