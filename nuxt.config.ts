@@ -21,9 +21,6 @@ export default defineNuxtConfig({
     }
   },
 
-  // CSS and styling
-  css: ['~/assets/css/main.css'],
-
   // Modules configuration
   modules: [
     '@nuxt/content',
@@ -34,7 +31,9 @@ export default defineNuxtConfig({
   // Content configuration
   content: {
     highlight: {
-      theme: 'github-dark'
+      theme: 'github-light',
+      preload: ['json', 'js', 'ts', 'css', 'shell', 'markdown', 'yaml', 'bash', 'vue', 'makefile'],
+      langs: ['json', 'js', 'ts', 'css', 'shell', 'markdown', 'yaml', 'bash', 'vue', 'makefile']
     },
     markdown: {
       remarkPlugins: ['remark-mermaid'],

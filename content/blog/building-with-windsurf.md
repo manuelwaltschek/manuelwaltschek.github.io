@@ -2,209 +2,369 @@
 title: 'Building with Windsurf - A Software Engineer''s AI Journey'
 description: 'Exploring agentic AI development with Windsurf - from static site to dynamic blog, with insights and learnings along the way.'
 date: '2025-03-11'
-tags: ['AI', 'Development', 'Windsurf', 'Vue.js']
+tags: ['AI Development', 'Windsurf', 'Vue.js']
 image: '/images/blog/ai-coding.jpg'
 author: 'Manuel Waltschek'
 readingTime: '6 min'
 ---
 
 :::lead
-As a software engineer fascinated by AI technologies, I've been exploring various AI-powered development tools. This is the story of my first practical project with Windsurf, an agentic AI assistant, and what I learned along the way.
+As an experienced web developer, I recently embarked on a journey with Windsurf, an agentic AI assistant, to transform my PDF CV into a modern website. This is the story of how we went from a basic static page to a fully deployed Vue.js application, and what I learned along the way.
 :::
 
-## The Path to Agentic AI
+## Phase 1: From CV to First Static Site
 
-My journey into AI-assisted development started with familiar tools like GitHub Copilot and ChatGPT. While exploring AI initiatives for my employer and researching the possibility of implementing an AI code pilot trained on company data, I discovered Codeium and their innovative Windsurf IDE.
+The journey began with a simple PDF CV and a vision for a professional website. Here's how Windsurf helped bootstrap the project:
 
-To build a solid foundation, I invested time in understanding the underlying technologies. Google's Machine Learning crash course and their YouTube series on LLMs, embeddings, RAGs, and agentic AI provided valuable insights into the technology I was about to work with.
+> **User**: I have my CV in PDF format. Can you help create a website that matches its style?
 
-## From Static to Dynamic: A Website's Evolution
+> **Cascade**: I notice your CV uses #2962B3 as the primary color. Let's start with a basic HTML structure that maintains your brand identity:
 
-:::info
-What started as a simple CV-based landing page evolved into something much more interesting through collaborative iteration with Windsurf.
-:::
-
-The journey began with a simple prompt:
-
-```
-User: I have a CV in PDF format. Can you help me create a modern, professional website based on its content?
-
-Cascade: I'll help you create a modern website. First, let's set up a Nuxt.js project for a clean, component-based architecture. Here's what we'll do:
-
-npm create nuxt@latest
-npm install @nuxtjs/tailwindcss @vueuse/motion @nuxt/content
-
-This will give us a solid foundation with Tailwind CSS for styling and smooth animations.
-```
-
-The initial implementation was straightforward but static. Here's where things got interesting - Windsurf started suggesting improvements:
-
-```
-Cascade: I notice we could make this more dynamic. Instead of hardcoding your CV content, we could use Nuxt Content to manage it as markdown files. This would make updates easier and allow us to add a blog section. Here's the structure I propose:
-
-/content
-  /blog        # Blog posts in markdown
-  /cv          # CV sections as structured content
-/components    # Reusable Vue components
-/pages         # Route components
-/layouts       # Page layouts
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manuel Waltschek - Software Engineer</title>
+  <style>
+    :root { --primary: #2962B3; }
+    body { font-family: system-ui, sans-serif; }
+    .header { color: var(--primary); }
+  </style>
+</head>
+<body>
+  <!-- Basic content structure from CV -->
+</body>
+</html>
 ```
 
 :::info
-Working with Windsurf feels like pair programming with a very methodical partner - one that's happy to restart the dev server multiple times until everything works just right.
+While functional, this initial static site lacked modern features and maintainability. We needed a more robust solution that could handle blog content and future scalability.
 :::
 
-The transition to a dynamic site wasn't without its challenges. Here's a typical debugging session:
+## Phase 2: Choosing the Right Stack
 
+Coming from an Angular background, I wanted a framework that would offer similar component organization and type safety:
+
+> **User**: The static site works, but I want to add a blog and make it more maintainable. What would you recommend?
+
+> **Cascade**: Given your Angular experience, I'd suggest Vue.js with Nuxt.js. Here's why:
+1. Component-based architecture similar to Angular
+2. TypeScript support out of the box
+3. Built-in static site generation
+4. Great markdown support via @nuxt/content
+
+This aligned perfectly with my preference for clean code organization and type safety.
+
+## Phase 3: The Technical Migration
+
+With the stack decided, we began the transformation process:
+
+```bash
+# Initial project setup
+npx nuxi init personal-website
+cd personal-website
+
+# Essential dependencies
+npm install @nuxt/content @nuxtjs/tailwindcss
+npm install --save-dev typescript @nuxt/types
 ```
-Error: Cannot find module '@nuxt/content'
 
-Cascade: Let's fix this error:
-1. First, let's check if the module is properly installed
-2. Then, we need to add it to the Nuxt config
+We immediately hit our first technical challenge:
 
-npm install @nuxt/content
+> **User**: Getting a TypeScript error about missing types
 
+> **Cascade**: Let's fix that by updating tsconfig.json:
+
+```json
+{
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "types": ["@nuxt/types", "@nuxt/content"]
+  }
+}
+```
+
+## Phase 4: Building the Blog
+
+:::info
+The blog implementation revealed Windsurf's ability to handle complex features while maintaining clean code organization.
+:::
+
+We started with the content structure:
+
+```bash
+content/
+  blog/
+    welcome-to-my-blog.md
+    building-with-windsurf.md
+  cv/
+    experience.md
+    skills.md
+```
+
+Then came the markdown rendering challenges:
+
+> **User**: The code blocks aren't rendering properly, and the syntax highlighting is missing
+
+> **Cascade**: We'll update the Nuxt Content configuration:
+
+```js
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@nuxt/content']
+  content: {
+    highlight: {
+      theme: 'github-dark',
+      preload: ['typescript', 'vue', 'bash']
+    },
+    markdown: {
+      remarkPlugins: ['remark-gfm'],
+      rehypePlugins: ['rehype-slug']
+    }
+  }
 })
-
-Let me restart the dev server to apply these changes...
 ```
 
-What impressed me was how Windsurf handled the iterative process. Instead of just throwing code at the problem, it would:
-1. Analyze error messages
-2. Propose specific fixes
-3. Verify the changes worked
-4. Suggest improvements proactively
+After fixing the content rendering, we tackled the blog layout:
 
-## Working with Windsurf: A Practical Assessment
-
-One thing I quickly learned is that Windsurf appreciates precision in prompts. Here's an example of refining a request:
-
-```
-User: Can you add some animations to the page?
-
-Cascade: I'll need more specifics. What kind of animations are you looking for? I could add:
-- Fade-in effects on scroll
-- Hover transitions
-- Page transitions
-- Loading animations
-
-User: Let's start with fade-in effects on scroll.
-
-Cascade: Perfect! I'll use @vueuse/motion for smooth, performant animations:
-
+```vue
+<!-- pages/blog/[...slug].vue -->
 <template>
-  <div
-    v-motion
-    :initial="{ opacity: 0, y: 100 }"
-    :enter="{ opacity: 1, y: 0 }"
-    :when-in-view="{ amount: 0.2 }"
-  >
-    <!-- Content here -->
-  </div>
+  <article class="prose mx-auto">
+    <ContentDoc />
+  </article>
 </template>
 ```
 
-The accept/dismiss workflow makes it easy to guide the development. When Windsurf suggests a change, you can:
-1. Accept it as is
-2. Request modifications
-3. Dismiss it entirely
+## Working with Windsurf: A Practical Assessment
 
-This iterative process helped refine the site's design and functionality. For example, here's how we handled the blog post styling:
+One of the most interesting aspects was how Windsurf adapted to my Angular-style component organization. Here's how we structured the hero section:
 
-```
-User: The blog post headings need better spacing.
+> **User**: I want the hero section to be a separate component with clean separation of template, script, and styles.
 
-Cascade: I'll adjust the typography scale and margins:
-
-.prose h1 { margin-top: 0; margin-bottom: 2.5rem; }
-.prose h2 { margin-top: 4rem; margin-bottom: 2rem; }
-.prose h3 { margin-top: 3rem; margin-bottom: 1.5rem; }
-
-This creates a clear visual hierarchy while maintaining readability.
-```
-
-The tool showed particular strength in documentation. Here's an example of its Makefile generation:
-
-```makefile
-# Development
-.PHONY: dev
-dev:
-    npm run dev
-
-# Build for production
-.PHONY: build
-build:
-    npm run build
-
-# Preview production build
-.PHONY: preview
-preview:
-    npm run preview
-
-# Deploy to GitHub Pages
-.PHONY: deploy
-deploy: build
-    # Add deployment commands here
-```
-
-## Critical Analysis
-
-For smaller projects or proofs of concept, Windsurf proves to be a capable partner. Here's a breakdown of its strengths and limitations:
-
-### Strengths
-```plaintext
-✓ Quick Project Setup
-  - Suggests best practices
-  - Handles dependency management
-  - Creates sensible project structure
-
-✓ Iterative Development
-  - Maintains context across sessions
-  - Provides clear explanations
-  - Offers multiple solutions
-
-✓ Documentation
-  - Generates comprehensive README files
-  - Creates useful Makefiles
-  - Documents code clearly
-```
-
-### Areas for Improvement
-```plaintext
-△ Tool Precision
-  - Sometimes misinterprets complex requirements
-  - May need multiple iterations for exact implementation
-  - Tool calling can be inconsistent
-
-△ Enterprise Readiness
-  - Iteration times could be challenging at scale
-  - May struggle with complex architectural decisions
-  - Limited understanding of enterprise patterns
-```
-
-> Here's a funny but telling anecdote: While building this site, I realized that even though some actions seemed to fail due to incorrect tool calling, Windsurf was still a pleasant tool to work with. It helped create this simple project quite effectively - or rather, it created what it thought it should be. And you know what? Sometimes its ideas were better than my original plans! 😉
-
-For example, when I asked for a simple landing page, it suggested adding subtle geometric animations in the background:
+> **Cascade**: Perfect, let's create a modular hero component with animations. Here's the structure:
 
 ```vue
-<!-- Decorative background with dynamic shapes -->
-<div class="absolute inset-0 opacity-10">
-  <div class="absolute top-10 left-1/4 w-64 h-64 border-2 border-primary rounded-full transform rotate-45"></div>
-  <div class="absolute -bottom-10 right-1/4 w-72 h-72 border-2 border-secondary rounded-lg transform -rotate-12"></div>
-  <!-- More shapes... -->
-</div>
+<!-- components/sections/HeroSection.vue -->
+<template>
+  <section class="hero-section">
+    <div
+      v-motion
+      :initial="{ opacity: 0, y: 20 }"
+      :enter="{ opacity: 1, y: 0, transition: { duration: 600 } }"
+      class="hero-content"
+    >
+      <h1 class="hero-title">{{ title }}</h1>
+      <p class="hero-subtitle">{{ subtitle }}</p>
+    </div>
+  </section>
+</template>
+
+<script setup lang="ts">
+defineProps<{
+  title: string
+  subtitle: string
+}>()
+</script>
+
+<style scoped>
+.hero-section {
+  @apply min-h-screen relative overflow-hidden;
+}
+
+.hero-content {
+  @apply max-w-4xl mx-auto px-4 py-32;
+}
+
+.hero-title {
+  @apply text-4xl md:text-6xl font-bold text-gray-900;
+}
+
+.hero-subtitle {
+  @apply text-xl text-gray-600 mt-6;
+}
+</style>
 ```
 
-This wasn't something I had considered, but it added a subtle, professional touch to the design.
+This component structure follows familiar Angular patterns, maintaining the clean separation of concerns I value while leveraging Vue's modern features.
+
+## Phase 5: Styling and Typography
+
+With components in place, we focused on consistent styling. A key challenge was the blog typography:
+
+> **User**: The blog post headings need work. Can we make them match the CV's style?
+
+> **Cascade**: Let's use your brand color and create a clean hierarchy:
+
+```javascript
+// tailwind.config.js
+typography: {
+  css: {
+    h1: { 
+      color: '#2962B3',  // Primary brand color
+      borderBottom: '3px solid #2962B3',
+      paddingBottom: '0.5rem',
+      display: 'inline-block'
+    },
+    h2: { 
+      color: '#2962B3',
+      borderBottom: '2px solid rgba(41, 98, 179, 0.7)',
+      paddingBottom: '0.5rem'
+    }
+  }
+}
+```
+
+This maintained visual consistency with my CV while providing clear content hierarchy.
+
+## Phase 6: Development Workflow
+
+To streamline the development process, we set up proper tooling:
+
+### Local Development
+
+First, a Makefile for common tasks:
+
+```makefile
+# Makefile
+.PHONY: dev build preview deploy
+
+dev:        ## Start development server
+	npm run dev
+
+build:      ## Build for production
+	npm run build
+
+preview:    ## Preview production build
+	npm run preview
+
+deploy: build   ## Deploy to GitHub Pages
+	@echo "Deploying to GitHub Pages..."
+```
+
+### Automated Deployment
+
+Next, GitHub Actions for continuous deployment:
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: npm ci
+      - run: npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+```
+
+## Technical Challenges
+
+Throughout development, we tackled several key challenges:
+
+1. **Component Architecture**
+   - Challenge: Maintaining Angular-like structure in Vue
+   - Solution: Clear separation of template, script, and styles
+
+2. **Type Safety**
+   - Challenge: TypeScript integration
+   - Solution: Proper type declarations and strict mode
+
+3. **Build Process**
+   - Challenge: Static site generation issues
+   - Solution: Configured Nuxt SSG and base URL
+
+4. **Content Management**
+   - Challenge: Markdown processing and highlighting
+   - Solution: Optimized Nuxt Content configuration
+
+## Phase 7: Final Deployment
+
+With the site polished and tested, we tackled deployment:
+
+### GitHub Pages Configuration
+
+The first challenge was configuring Nuxt for GitHub Pages:
+
+```js
+// nuxt.config.ts
+export default defineNuxtConfig({
+  app: {
+    baseURL: '/personal-website/',
+    head: {
+      title: 'Manuel Waltschek',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ]
+    }
+  },
+  // Ensure proper static generation
+  ssr: true,
+  target: 'static'
+})
+```
+
+### Documentation
+
+Finally, we documented the project setup:
+
+```markdown
+# Personal Website
+
+Modern personal website built with Vue.js/Nuxt.js, featuring:
+- Component-based architecture
+- TypeScript integration
+- Markdown blog with syntax highlighting
+- Automated GitHub Pages deployment
+
+## Development
+
+\`\`\`bash
+# Install dependencies
+npm install
+
+# Start development server
+make dev
+
+# Build and preview
+make build
+make preview
+\`\`\`
+```
 
 ## Looking Forward
 
-This project is just the beginning of my journey with AI-powered development. My next steps involve creating applications that themselves use AI, with a particular focus on Spring AI - a framework I'm very familiar with. I'm especially interested in developing tools that enhance developer productivity and documenting the entire process.
+This project demonstrated how AI can enhance development while respecting engineering best practices. Starting from a PDF CV, we:
 
-The experience with Windsurf has shown me both the current capabilities and limitations of agentic AI in software development. While we're not quite at the point where AI can handle enterprise-scale applications independently, tools like Windsurf are already valuable additions to a developer's toolkit.
+1. Analyzed the existing design
+2. Created a static prototype
+3. Migrated to Vue.js with TypeScript
+4. Implemented a component-based architecture
+5. Set up automated deployment
 
-Curious about how it all came together? Check out the [source code](https://github.com/manuelwaltschek/personal-website) and stay tuned for more posts about AI-powered development!
+Key takeaways:
+- Clean separation of concerns is crucial
+- Type safety improves maintainability
+- Automated deployment saves time
+- Brand consistency matters
+
+In future posts, I'll share insights about:
+- Enterprise Java development
+- Modern web development with Vue.js
+- GIS solutions and mobility services
+- AI integration in development
+
+Stay tuned as I continue exploring the intersection of enterprise development and emerging technologies!

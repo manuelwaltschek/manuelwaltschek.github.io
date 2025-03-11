@@ -28,7 +28,7 @@ This blog focuses on practical applications of AI in software development, best 
 
 ## Why This Blog?
 
-> "While there are many tech blogs out there, I believe my combination of Spring Framework expertise and enthusiasm for AI technologies offers a unique perspective on where software development is heading."
+> While there are many tech blogs out there, I believe my combination of Spring Framework expertise and enthusiasm for AI technologies offers a unique perspective on where software development is heading.
 
 ### My Focus Areas
 
